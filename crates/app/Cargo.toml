@@ -1,0 +1,65 @@
+[package]
+name = "kickwerk"
+description = "Kickwerk KW-1: a modular main-kick machine for techno (Dioxus web + Linux desktop)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+kickwerk-dsp = { path = "../dsp" }
+dioxus = { version = "0.7.10" }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+
+# --- web (WebAudio AudioWorklet) ---
+wasm-bindgen = { version = "0.2", optional = true }
+wasm-bindgen-futures = { version = "0.4", optional = true }
+js-sys = { version = "0.3", optional = true }
+gloo-timers = { version = "0.3", features = ["futures"], optional = true }
+web-sys = { version = "0.3", optional = true, features = [
+    "AudioContext",
+    "AudioContextOptions",
+    "AudioContextState",
+    "AudioDestinationNode",
+    "AudioNode",
+    "AudioWorklet",
+    "AudioWorkletNode",
+    "AudioWorkletNodeOptions",
+    "BaseAudioContext",
+    "Blob",
+    "BlobPropertyBag",
+    "Document",
+    "Element",
+    "HtmlAnchorElement",
+    "HtmlElement",
+    "MessageEvent",
+    "MessagePort",
+    "Storage",
+    "Url",
+    "Window",
+    "Worklet",
+] }
+
+# --- desktop (PulseAudio) ---
+libpulse-binding = { version = "2.30", optional = true }
+libpulse-simple-binding = { version = "2.29", optional = true }
+tokio = { version = "1", features = ["time"], optional = true }
+rfd = { version = "0.17.2", default-features = false, features = ["xdg-portal"], optional = true }
+
+[features]
+default = []
+web = [
+    "dioxus/web",
+    "dep:wasm-bindgen",
+    "dep:wasm-bindgen-futures",
+    "dep:js-sys",
+    "dep:web-sys",
+    "dep:gloo-timers",
+]
+desktop = [
+    "dioxus/desktop",
+    "dep:libpulse-binding",
+    "dep:libpulse-simple-binding",
+    "dep:tokio",
+    "dep:rfd",
+]

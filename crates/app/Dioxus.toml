@@ -1,0 +1,8 @@
+[application]
+name = "kickwerk"
+
+[web.app]
+title = "Kickwerk KW-1 · Modular Kick Foundry"
+
+[web.watcher]
+watch_path = ["src", "assets", "../dsp/src", "../worklet/src"]

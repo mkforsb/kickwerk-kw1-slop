@@ -1,0 +1,12 @@
+[package]
+name = "kickwerk-worklet"
+description = "Kickwerk DSP compiled to a dependency-free wasm module for an AudioWorkletProcessor"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+kickwerk-dsp = { path = "../dsp" }
